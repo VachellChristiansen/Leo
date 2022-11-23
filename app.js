@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
 app.post('/insert', async (req, res) => {
   console.log(req.body)
   const { errorInsert } = await supabase.from('testing').insert({ name: req.body.name, comment: req.body.comment})
-  const { data, errorSelect } = await supabase.from('testing').select()
+  const { data, errorSelect } = await supabase.from('testing').select().eq('id', 1)
   console.log(data)
-  res.render('data');
+  res.render('data', { name: data[0].name, comment: data[0].comment});
 });
 
 app.listen(3000, () => {
