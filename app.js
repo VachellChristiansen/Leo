@@ -11,13 +11,15 @@ app.get('/', (req, res) => {
 });
 
 app.post('/insert', async (req, res) => {
-  console.log(req.body)
-  const { errorInsert } = await supabase.from('testing').insert({ name: req.body.name, comment: req.body.comment})
-  const { data, errorSelect } = await supabase.from('testing').select().eq('id', 1)
-  console.log(data)
-  res.render('data', { name: data[0].name, comment: data[0].comment});
-});
+  //query
+  const { data: rutePesawat, error: errorRute } = await supabase
+  .from('rutePesawat')
+  .select(`*, pesawat (namaMaskapai) , from: provinsiAsal (namaProvinsi), to: provinsiTujuan (namaProvinsi)`)
+  .eq('ruteID', 'CGDPEGA2')
+  console.log(rutePesawat)
 
+  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('rutePesawat').select('*')
+});
 app.listen(3000, () => {
   console.log('http://localhost:3000')
 
