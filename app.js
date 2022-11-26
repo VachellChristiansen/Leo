@@ -20,7 +20,10 @@ app.post('/insert', async (req, res) => {
   .eq('ruteID', 'CGDPEGA2')
   console.log(rutePesawat)
 
-  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('ruteKereta').select('*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)').eq('ruteID', 'GMGDEAPY1')
+  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase
+  .from('ruteKereta')
+  .select('*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)')
+  .eq('ruteID', 'GMGDEAPY1')
   console.log(kataLeoGabisa[0].asal.namaKota)
 });
 
