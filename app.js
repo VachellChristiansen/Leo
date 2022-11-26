@@ -13,15 +13,15 @@ app.get('/', (req, res) => {
 
 app.post('/insert', async (req, res) => {
   //query
-  console.log(req.body);
+  // console.log(req.body);
   const { data: rutePesawat, error: errorRute } = await supabase
   .from('rutePesawat')
-  .select(`*, pesawat (namaMaskapai) , from: provinsiAsal (namaProvinsi), to: provinsiTujuan (namaProvinsi)`)
+  .select(`*, pesawat (namaMaskapai) , asal: provinsiAsal (namaProvinsi), tujuan: provinsiTujuan (namaProvinsi)`)
   .eq('ruteID', 'CGDPEGA2')
-  // console.log(rutePesawat)
+  console.log(rutePesawat)
 
-  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('ruteKereta').select('*, kereta (namaKereta) , from: kotaAsal (namaKota), to: kotaTujuan (namaKota)').eq('ruteID', 'GMGDEAPY1')
-  // console.log(kataLeoGabisa)
+  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('ruteKereta').select('*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)').eq('ruteID', 'GMGDEAPY1')
+  console.log(kataLeoGabisa)
 });
 
 app.listen(3000, () => {
