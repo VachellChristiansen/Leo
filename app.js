@@ -18,8 +18,10 @@ app.post('/insert', async (req, res) => {
   .eq('ruteID', 'CGDPEGA2')
   console.log(rutePesawat)
 
-  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('rutePesawat').select('*')
+  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('ruteKereta').select('*, kereta (namaKereta) , from: kotaAsal (namaKota), to: kotaTujuan (namaKota)').eq('ruteID', 'GMGDEAPY1')
+  console.log(kataLeoGabisa)
 });
+
 app.listen(3000, () => {
   console.log('http://localhost:3000')
 
