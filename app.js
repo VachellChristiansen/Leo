@@ -4,6 +4,7 @@ const supabase = require('./connection')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('views'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
@@ -12,14 +13,15 @@ app.get('/', (req, res) => {
 
 app.post('/insert', async (req, res) => {
   //query
+  console.log(req.body);
   const { data: rutePesawat, error: errorRute } = await supabase
   .from('rutePesawat')
   .select(`*, pesawat (namaMaskapai) , from: provinsiAsal (namaProvinsi), to: provinsiTujuan (namaProvinsi)`)
   .eq('ruteID', 'CGDPEGA2')
-  console.log(rutePesawat)
+  // console.log(rutePesawat)
 
   const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('ruteKereta').select('*, kereta (namaKereta) , from: kotaAsal (namaKota), to: kotaTujuan (namaKota)').eq('ruteID', 'GMGDEAPY1')
-  console.log(kataLeoGabisa)
+  // console.log(kataLeoGabisa)
 });
 
 app.listen(3000, () => {

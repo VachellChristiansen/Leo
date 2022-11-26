@@ -1,0 +1,7 @@
+h1 {
+  color: red;
+}
+
+input[type=date]::-webkit-datetime-edit {
+  color: white;
+}
