@@ -21,7 +21,7 @@ app.post('/insert', async (req, res) => {
   console.log(rutePesawat)
 
   const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase.from('ruteKereta').select('*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)').eq('ruteID', 'GMGDEAPY1')
-  console.log(kataLeoGabisa)
+  console.log(kataLeoGabisa[0].asal.namaKota)
 });
 
 app.listen(3000, () => {
