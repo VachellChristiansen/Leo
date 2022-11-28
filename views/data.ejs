@@ -7,7 +7,14 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Hello <%= name %></h1>
-  <h2>Comment: <%= comment %></h2>
+  <form action="/test" method="post">
+    <% for(let i = 0; i < 5; i++) { %>
+      <label for="penumpang<%= i %>">Penumpang ke- <%= i+1 %></label>
+      <input type="text" name="penumpang[]" id="penumpang<%= i+1 %>"><br/>
+      <label for="penumpang<%= i %>">Detail untuk peumpang ke- <%= i+1 %></label>
+      <input type="text" name="detail[]" id="detail<%= i+1 %>"><br/><br/>
+    <% } %>
+    <input type="submit">
+  </form>
 </body>
 </html>

@@ -3,35 +3,42 @@ const app = express();
 const supabase = require('./connection')
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('views'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('data')
 });
 
-app.post('/insert', async (req, res) => {
-  //query
-  // console.log(req.body);
-  const { data: rutePesawat, error: errorRute } = await supabase
-  .from('rutePesawat')
-  .select(`*, pesawat (namaMaskapai) , asal: provinsiAsal (namaProvinsi), tujuan: provinsiTujuan (namaProvinsi)`)
-  .eq('ruteID', 'CGDPEGA2')
-  console.log(rutePesawat)
+app.post('/test', async (req, res) => {
+  const penumpang = req.body.penumpang
+  const detail = req.body.detail
 
-  const { data: kataLeoGabisa, error: errorKataLeoGabisa } = await supabase
-  .from('ruteKereta')
-  .select('*, kereta (namaKereta) , asal: kotaAsal (namaKota), tujuan: kotaTujuan (namaKota)')
-  .eq('ruteID', 'GMGDEAPY1')
-  console.log(kataLeoGabisa[0].asal.namaKota)
-});
+  penumpang.forEach(async (orang, index) => {
+    const { data, error } = await supabase
+    .from('testArrayInput')
+    .insert([
+      { 
+        nama: orang, 
+        detail: detail[index] 
+      }
+    ])
+  })
+
+
+  // for(let i = 0; i < penumpang.length; i++) {
+  //   const { data, error } = await supabase
+  //   .from('testArrayInput')
+  //   .insert([
+  //     { 
+  //       nama: penumpang[i], 
+  //       detail: detail[i]
+  //     }
+  //   ])
+  // }
+})
 
 app.listen(3000, () => {
   console.log('http://localhost:3000')
-
-
-  // test gitthub
-
-  // push kedua
 })
