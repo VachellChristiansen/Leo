@@ -5,3 +5,7 @@ h1 {
 input[type=date]::-webkit-datetime-edit {
   color: white;
 }
+
+.hide {
+  display: none;
+}
